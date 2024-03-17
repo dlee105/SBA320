@@ -222,6 +222,8 @@ function App() {
 
   const [randomSongs, setRandomSongs] = useState([]);
 
+  // console.log("token: ", token);
+
   useEffect(() => {
     const hash = window.location.hash;
     let token = window.localStorage.getItem("token");
@@ -241,24 +243,24 @@ function App() {
     setToken(token);
   }, []);
 
-  const getRandom = async () => {
-    const { data } = await axios.get("https://api.spotify.com/v1/search", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      params: {
-        q: "Discover Weekly",
-        type: "track",
-      },
-    });
+  // const getRandom = async () => {
+  //   const { data } = await axios.get("https://api.spotify.com/v1/me", {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //     params: {
+  //       q: "Discover Weekly",
+  //       type: "track",
+  //     },
+  //   });
 
-    console.log(data);
-    // setRandomSongs(data.tracks.items);
-  };
+  //   console.log(data);
+  //   // setRandomSongs(data.tracks.items);
+  // };
 
-  useEffect(() => {
-    getRandom();
-  }, [token]);
+  // useEffect(() => {
+  //   getRandom();
+  // }, [token]);
 
   const logout = () => {
     setToken("");
@@ -292,7 +294,7 @@ function App() {
                 </a>
               </Button>
             ) : (
-              <ProfileAvatar logout={logout} />
+              <ProfileAvatar logout={logout} token={token} />
             )}
           </div>
           <div className="mt-5 w-full">
@@ -320,12 +322,28 @@ function App() {
 export default App;
 
 function ProfileAvatar(props) {
+  const [userImg, setUserImg] = useState(null);
+
+  async function getProfile() {
+    const { data } = await axios.get("https://api.spotify.com/v1/me", {
+      headers: {
+        Authorization: `Bearer ${props.token}`,
+      },
+    });
+
+    setUserImg(data.images[1].url);
+  }
+
+  useEffect(() => {
+    getProfile();
+  }, []);
+
   return (
     <ThemeProvider value={customMenu}>
       <Menu placement="bottom-end">
         <MenuHandler>
           <Avatar
-            src="https://docs.material-tailwind.com/img/face-2.jpg"
+            src={userImg}
             alt="avatar"
             className="ml-5 p-0.5 border-transparent border hover:border-2 hover:border-sp-green"
             withBorder={true}
