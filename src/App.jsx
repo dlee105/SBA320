@@ -11,6 +11,10 @@ import {
   MenuItem,
   Button,
   ButtonGroup,
+  List,
+  ListItem,
+  Typography,
+  Card,
 } from "@material-tailwind/react";
 import spotiLite from "./assets/spotiLite.png";
 import SearchBar from "./Pages/components/searchBar";
@@ -219,10 +223,23 @@ function App() {
   const RESPONSE_TYPE = "token";
 
   const [token, setToken] = useState();
-
   const [randomSongs, setRandomSongs] = useState([]);
+  const [quickPlaylist, setQuickPlayList] = useState(null);
 
   // console.log("token: ", token);
+
+  const handleQuickSelection = (type) => {
+    const PLAYLIST_ID = {
+      top50: "37i9dQZEVXbLRQDuF5jeBp",
+      hiphop: "37i9dQZF1EIdZFdTlGR1gX",
+      pop: "37i9dQZF1EQncLwOalG3K7",
+      electronic: "37i9dQZF1EIeZKM1YFAtwx",
+      classic: "37i9dQZF1EIhNMgnrEv1hX",
+    };
+
+    // console.log(PLAYLIST_ID[type]);
+    setQuickPlayList(PLAYLIST_ID[type]);
+  };
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -269,7 +286,7 @@ function App() {
 
   return (
     <>
-      <div className="flex sm:grid  sm:space-y-2 md:space-x-2 lg:space-x-2">
+      <div className="flex sm:grid sm:space-y-2 md:space-x-2 lg:space-x-2">
         <div className="md:w-1/4 sm:w-full lg:w-1/4 bg-sp-card rounded-md flex justify-center items-center py-5">
           <img
             src={spotiLite}
@@ -303,13 +320,31 @@ function App() {
           </div>
           <ThemeProvider value={customBtn}>
             <ButtonGroup fullWidth className="w-full mt-2" color="green">
-              <Button>Top 50</Button>
-              <Button>Hip Hop</Button>
-              <Button>Pop</Button>
-              <Button>Electronic</Button>
-              <Button>Classic Mix</Button>
+              <Button onClick={() => handleQuickSelection("top50")}>
+                Top 50
+              </Button>
+              <Button onClick={() => handleQuickSelection("hiphop")}>
+                Hip Hop
+              </Button>
+              <Button onClick={() => handleQuickSelection("pop")}>Pop</Button>
+              <Button onClick={() => handleQuickSelection("electronic")}>
+                Electronic
+              </Button>
+              <Button onClick={() => handleQuickSelection("classic")}>
+                Classic Mix
+              </Button>
             </ButtonGroup>
           </ThemeProvider>
+        </div>
+      </div>
+      <div className="flex sm:grid sm:space-y-2 md:space-x-2 lg:space-x-2 mt-3">
+        <div className="bg-sp-grey w-1/4 rounded-md">hello</div>
+        <div className="bg-sp-grey w-3/4 rounded-md h-svh overflow-x-hidden">
+          {quickPlaylist != null ? (
+            <PlaylistDisplay id={quickPlaylist} token={token} />
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </>
@@ -365,5 +400,76 @@ function ProfileAvatar(props) {
         </MenuList>
       </Menu>
     </ThemeProvider>
+  );
+}
+
+function PlaylistDisplay(props) {
+  const [playListID, setPlayListID] = useState(null);
+  const [tracks, setTracks] = useState([]);
+
+  async function getPlaylistInfo() {
+    if (playListID == null) return;
+    const { data } = await axios.get(
+      "https://api.spotify.com/v1/playlists/" + playListID,
+      {
+        headers: {
+          Authorization: `Bearer ${props.token}`,
+        },
+      }
+    );
+    console.log(data);
+    setTracks(data.tracks.items);
+  }
+
+  useEffect(() => {
+    setPlayListID(props.id);
+    console.log(tracks);
+  });
+
+  useEffect(() => {
+    getPlaylistInfo();
+  }, [playListID]);
+
+  const TABLE_HEAD = ["ID", "Track Name", "Artist"];
+
+  return (
+    <Card>
+      <table className="w-full min-w-max table-auto text-left">
+        <thead className="">
+          <tr>
+            {TABLE_HEAD.map((head) => (
+              <th
+                key={head}
+                className="border-b border-blue-gray-100 bg-sp-grey  p-4"
+              >
+                <Typography
+                  variant="small"
+                  color="white"
+                  className="font-normal leading-none"
+                >
+                  {head}
+                </Typography>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {tracks.map((song, index) => {
+            const classes = "bg-sp-grey text-white p-4 ";
+            return (
+              <tr className="hover:bg-sp-green">
+                <td className={classes}>{index}</td>
+                <td className={classes}>{song.track.name}</td>
+                <td className={classes}>
+                  {song.track.artists.map((artist) => (
+                    <a href={artist.href}>{artist.name}, </a>
+                  ))}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </Card>
   );
 }
