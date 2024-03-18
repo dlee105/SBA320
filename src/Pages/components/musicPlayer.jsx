@@ -8,7 +8,7 @@ function MusicPlayer(props) {
     <div className="flex justify-center h-screen p-0.5 h-[500px] sm:w-full">
       <div className="rounded-lg shadow-md w-full p-4 ">
         <img
-          src="https://telegra.ph/file/2acfcad8d39e49d95addd.jpg"
+          src="https://us-tuna-sounds-images.voicemod.net/764e45af-4864-4fa3-8b58-8dbb52549bbe-1703068933562.png"
           alt="idk - Highvyn, Taylor Shin"
           className="w-64 h-64 rounded-lg m-auto shadow-md shadow-sp-green"
         />

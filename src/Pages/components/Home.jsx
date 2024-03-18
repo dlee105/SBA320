@@ -36,10 +36,9 @@ function Home(props) {
 
       window.location.hash = "";
       window.localStorage.setItem("token", token);
-
-      console.log(token);
     }
     setToken(token);
+    props.func(token);
   }, []);
 
   const logout = () => {

@@ -137,9 +137,9 @@ function QuicknavBtn(props) {
   const handleQuickSelection = (type) => {
     const PLAYLIST_ID = {
       top50: "37i9dQZEVXbLRQDuF5jeBp",
-      hiphop: "37i9dQZF1EIdZFdTlGR1gX",
-      pop: "37i9dQZF1EQncLwOalG3K7",
-      electronic: "37i9dQZF1EIeZKM1YFAtwx",
+      hiphop: "37i9dQZF1DX0XUsuxWHRQd",
+      pop: "37i9dQZF1DWTwnEm1IYyoj",
+      electronic: "37i9dQZF1DX0BcQWzuB7ZO",
       classic: "37i9dQZF1EIhNMgnrEv1hX",
     };
     setPlayListID(PLAYLIST_ID[type]);

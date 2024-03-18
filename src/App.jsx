@@ -8,16 +8,15 @@ import Profile from "./Pages/components/Profile";
 import About from "./Pages/components/About";
 
 function App() {
-  const [token, setToken] = useState(null);
-  const [userData, setUserData] = useState(null);
+  const [token, setToken] = useState();
+  const [userData, setUserData] = useState();
 
   function extractToken(token) {
-    // console.log(token);
+    console.log(token);
     setToken(token);
   }
 
   function getUserData(data) {
-    console.log(data);
     setUserData(data);
   }
 
