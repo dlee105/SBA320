@@ -104,6 +104,7 @@ function ProfileAvatar(props) {
     });
 
     setUserImg(data.images[1].url);
+    props.func(data);
   }
 
   useEffect(() => {

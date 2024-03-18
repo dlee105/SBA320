@@ -10,7 +10,7 @@ import MusicPlayer from "../../Pages/components/musicPlayer";
 import ProfileAvatar from "../../Pages/components/profileAvatar";
 import PlaylistDisplay from "../../Pages/components/playlistDisplay";
 
-function Home() {
+function Home(props) {
   const CLIENT_ID = "e168e3307df14e53acc11791df29ddd5";
   const REDIRECT_URI = "http://localhost:5173/sba320/";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
@@ -74,7 +74,11 @@ function Home() {
                 </a>
               </Button>
             ) : (
-              <ProfileAvatar logout={logout} token={token} />
+              <ProfileAvatar
+                logout={logout}
+                token={token}
+                func={props.getUser}
+              />
             )}
           </div>
           <QuicknavBtn func={handleApiResponse} token={token} />

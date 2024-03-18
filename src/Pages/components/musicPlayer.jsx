@@ -6,7 +6,7 @@ function MusicPlayer(props) {
 
   return (
     <div className="flex justify-center h-screen p-0.5 h-[500px] sm:w-full">
-      <div class="rounded-lg shadow-md w-full p-4 ">
+      <div className="rounded-lg shadow-md w-full p-4 ">
         <img
           src="https://telegra.ph/file/2acfcad8d39e49d95addd.jpg"
           alt="idk - Highvyn, Taylor Shin"
