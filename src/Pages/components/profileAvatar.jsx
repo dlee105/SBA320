@@ -10,6 +10,7 @@ import {
 } from "@material-tailwind/react";
 
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const nav_svg = (
   <svg
@@ -18,7 +19,8 @@ const nav_svg = (
     viewBox="0 0 24 24"
     stroke-width="1.5"
     stroke="currentColor"
-    class="w-4 h-4"
+    className="w-4 h-4"
+    onClick={() => window.location.replace("https://open.spotify.com/")}
   >
     <path
       stroke-linecap="round"
@@ -108,6 +110,8 @@ function ProfileAvatar(props) {
     getProfile();
   }, []);
 
+  const navigate = useNavigate();
+
   return (
     <ThemeProvider value={customMenu}>
       <Menu placement="bottom-end">
@@ -120,8 +124,12 @@ function ProfileAvatar(props) {
           />
         </MenuHandler>
         <MenuList className="">
-          <MenuItem className="">Profile</MenuItem>
-          <MenuItem className="">About</MenuItem>
+          <MenuItem className="" onClick={() => navigate("/sba320/profile")}>
+            Profile
+          </MenuItem>
+          <MenuItem className="" onClick={() => navigate("/sba320/about")}>
+            About
+          </MenuItem>
           <MenuItem className="flex items-center justify-between">
             Spotify {nav_svg}
           </MenuItem>

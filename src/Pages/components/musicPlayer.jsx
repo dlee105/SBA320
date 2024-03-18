@@ -5,12 +5,12 @@ function MusicPlayer(props) {
   const [currentTrack, setCurrentTrack] = useState(null);
 
   return (
-    <div className="flex justify-center h-screen p-0.5 h-fit">
-      <div class="rounded-lg shadow-md w-full p-4 border border-sp-green">
+    <div className="flex justify-center h-screen p-0.5 h-[500px] sm:w-full">
+      <div class="rounded-lg shadow-md w-full p-4 ">
         <img
           src="https://telegra.ph/file/2acfcad8d39e49d95addd.jpg"
           alt="idk - Highvyn, Taylor Shin"
-          class="w-64 h-64 rounded-lg m-auto shadow-md shadow-sp-green"
+          className="w-64 h-64 rounded-lg m-auto shadow-md shadow-sp-green"
         />
         <div className="pt-3">
           <div className="text-lg">Song name</div>
@@ -24,7 +24,7 @@ function MusicPlayer(props) {
               width="64px"
               height="64px"
               viewBox="0 0 24 24"
-              class="w-2 h-2 text-gray-600"
+              className="w-2 h-2 text-gray-600"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               transform="matrix(-1, 0, 0, 1, 0, 0)"
@@ -52,7 +52,7 @@ function MusicPlayer(props) {
               width="64px"
               height="64px"
               viewBox="0 0 24 24"
-              class="w-2 h-2 text-gray-600"
+              className="w-2 h-2 text-gray-600"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -79,7 +79,7 @@ function MusicPlayer(props) {
               width="64px"
               height="64px"
               viewBox="0 0 24 24"
-              class="w-2 h-2 text-sp-grey"
+              className="w-2 h-2 text-sp-grey"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -102,11 +102,11 @@ function MusicPlayer(props) {
             </svg>
           </button>
         </div>
-        <div class="mt-6 bg-sp-bg h-2 rounded-full">
-          <div class="bg-sp-green h-2 rounded-full w-1/2"></div>
+        <div className="mt-6 bg-sp-bg h-2 rounded-full">
+          <div className="bg-sp-green h-2 rounded-full w-1/2"></div>
         </div>
 
-        <div class="flex justify-between mt-2 text-sm text-gray-600">
+        <div className="flex justify-between mt-2 text-sm text-gray-600">
           <span>1:57</span>
           <span>3:53</span>
         </div>
